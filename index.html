@@ -1,203 +1,463 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AboJad — Builder & Operator</title>
-<style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  :root {
-    --bg: #0a0a0f;
-    --surface: #111118;
-    --border: #1e1e2e;
-    --accent: #7c3aed;
-    --accent-glow: #7c3aed33;
-    --text: #e2e8f0;
-    --muted: #64748b;
-    --green: #10b981;
-    --orange: #f59e0b;
-  }
-  body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; line-height: 1.6; }
-  a { color: inherit; text-decoration: none; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AboJad — Builder & Operator</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-  /* NAV */
-  nav { position: fixed; top: 0; width: 100%; background: #0a0a0fcc; backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); z-index: 100; }
-  .nav-inner { max-width: 1100px; margin: 0 auto; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
-  .logo { font-size: 1.25rem; font-weight: 700; color: var(--accent); }
-  .nav-links { display: flex; gap: 2rem; color: var(--muted); font-size: 0.9rem; }
-  .nav-links a:hover { color: var(--text); }
+    :root {
+      --bg: #0a0a0f;
+      --surface: #111118;
+      --border: #1e1e2e;
+      --accent: #7c3aed;
+      --accent-glow: #7c3aed33;
+      --text: #e2e8f0;
+      --muted: #64748b;
+      --green: #10b981;
+      --orange: #f59e0b;
+    }
 
-  /* HERO */
-  .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 2rem; position: relative; overflow: hidden; }
-  .hero::before { content: ''; position: absolute; width: 600px; height: 600px; background: radial-gradient(circle, #7c3aed22, transparent 70%); top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none; }
-  .hero-content { position: relative; z-index: 1; }
-  .hero-badge { display: inline-block; background: var(--accent-glow); border: 1px solid var(--accent); color: var(--accent); padding: 0.35rem 1rem; border-radius: 999px; font-size: 0.8rem; margin-bottom: 1.5rem; letter-spacing: 0.05em; }
-  .hero h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 800; line-height: 1.1; margin-bottom: 1rem; }
-  .hero h1 span { color: var(--accent); }
-  .hero p { color: var(--muted); font-size: 1.1rem; max-width: 520px; margin: 0 auto 2.5rem; }
-  .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-  .btn { padding: 0.75rem 1.75rem; border-radius: 8px; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: all 0.2s; }
-  .btn-primary { background: var(--accent); color: #fff; }
-  .btn-primary:hover { background: #6d28d9; box-shadow: 0 0 20px var(--accent-glow); }
-  .btn-ghost { background: transparent; color: var(--text); border: 1px solid var(--border); }
-  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      line-height: 1.6;
+    }
 
-  /* SECTIONS */
-  section { max-width: 1100px; margin: 0 auto; padding: 5rem 2rem; }
-  .section-label { color: var(--accent); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.75rem; }
-  .section-title { font-size: 2rem; font-weight: 700; margin-bottom: 1rem; }
-  .section-desc { color: var(--muted); max-width: 500px; margin-bottom: 3rem; }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
-  /* PROJECTS */
-  .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
-  .project-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.75rem; transition: all 0.2s; }
-  .project-card:hover { border-color: var(--accent); transform: translateY(-4px); box-shadow: 0 8px 32px var(--accent-glow); }
-  .project-icon { font-size: 2rem; margin-bottom: 1rem; }
-  .project-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; }
-  .project-card p { color: var(--muted); font-size: 0.9rem; margin-bottom: 1.25rem; }
-  .project-status { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.75rem; font-weight: 600; padding: 0.25rem 0.75rem; border-radius: 999px; }
-  .status-live { background: #10b98120; color: var(--green); }
-  .status-beta { background: #f59e0b20; color: var(--orange); }
-  .project-links { display: flex; gap: 0.75rem; margin-top: 1rem; }
-  .project-links a { font-size: 0.8rem; color: var(--muted); border: 1px solid var(--border); padding: 0.3rem 0.75rem; border-radius: 6px; transition: all 0.2s; }
-  .project-links a:hover { color: var(--accent); border-color: var(--accent); }
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: #0a0a0fcc;
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+    }
 
-  /* STACK */
-  .stack-grid { display: flex; flex-wrap: wrap; gap: 0.75rem; }
-  .stack-pill { background: var(--surface); border: 1px solid var(--border); padding: 0.5rem 1.25rem; border-radius: 999px; font-size: 0.85rem; color: var(--muted); transition: all 0.2s; }
-  .stack-pill:hover { border-color: var(--accent); color: var(--text); }
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-  /* CONTACT */
-  .contact-box { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 3rem; text-align: center; }
-  .contact-box h2 { font-size: 1.75rem; font-weight: 700; margin-bottom: 0.75rem; }
-  .contact-box p { color: var(--muted); margin-bottom: 2rem; }
-  .contact-links { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .logo {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
 
-  /* FOOTER */
-  footer { border-top: 1px solid var(--border); text-align: center; padding: 2rem; color: var(--muted); font-size: 0.85rem; }
-</style>
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, #7c3aed22, transparent 70%);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: var(--accent-glow);
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      padding: 0.35rem 1rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.05em;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+
+    .hero h1 span {
+      color: var(--accent);
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 1.1rem;
+      max-width: 520px;
+      margin: 0 auto 2.5rem;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 0.75rem 1.75rem;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: #6d28d9;
+      box-shadow: 0 0 20px var(--accent-glow);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* SECTIONS */
+    section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 5rem 2rem;
+    }
+
+    .section-label {
+      color: var(--accent);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .section-desc {
+      color: var(--muted);
+      max-width: 500px;
+      margin-bottom: 3rem;
+    }
+
+    /* PROJECTS */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.75rem;
+      transition: all 0.2s;
+    }
+
+    .project-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 32px var(--accent-glow);
+    }
+
+    .project-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .project-card h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .project-card p {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .project-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+    }
+
+    .status-live {
+      background: #10b98120;
+      color: var(--green);
+    }
+
+    .status-beta {
+      background: #f59e0b20;
+      color: var(--orange);
+    }
+
+    .project-links {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    .project-links a {
+      font-size: 0.8rem;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 0.3rem 0.75rem;
+      border-radius: 6px;
+      transition: all 0.2s;
+    }
+
+    .project-links a:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    /* STACK */
+    .stack-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .stack-pill {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 0.5rem 1.25rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      color: var(--muted);
+      transition: all 0.2s;
+    }
+
+    .stack-pill:hover {
+      border-color: var(--accent);
+      color: var(--text);
+    }
+
+    /* CONTACT */
+    .contact-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 3rem;
+      text-align: center;
+    }
+
+    .contact-box h2 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+
+    .contact-box p {
+      color: var(--muted);
+      margin-bottom: 2rem;
+    }
+
+    .contact-links {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      text-align: center;
+      padding: 2rem;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+  </style>
 </head>
+
 <body>
 
-<nav>
-  <div class="nav-inner">
-    <div class="logo">AboJad</div>
-    <div class="nav-links">
-      <a href="#projects">Projects</a>
-      <a href="#stack">Stack</a>
-      <a href="#contact">Contact</a>
+  <nav>
+    <div class="nav-inner">
+      <div class="logo">AboJad</div>
+      <div class="nav-links">
+        <a href="#projects">Projects</a>
+        <a href="#stack">Stack</a>
+        <a href="#contact">Contact</a>
+      </div>
     </div>
-  </div>
-</nav>
+  </nav>
 
-<div class="hero">
-  <div class="hero-content">
-    <div class="hero-badge">🚀 Open to sponsorship & collaboration</div>
-    <h1>Builder &<br><span>Operator</span></h1>
-    <p>3 years shipping AI-powered SaaS products and developer tools. Based in Morocco, building for the world.</p>
-    <div class="hero-btns">
-      <a href="#projects" class="btn btn-primary">View Projects</a>
-      <a href="https://ko-fi.com/abojad2017" target="_blank" class="btn btn-ghost">☕ Support on Ko-fi</a>
-    </div>
-  </div>
-</div>
-
-<section id="projects">
-  <div class="section-label">Work</div>
-  <h2 class="section-title">Projects</h2>
-  <p class="section-desc">AI-powered tools built for developers and e-commerce sellers.</p>
-  <div class="projects-grid">
-    <div class="project-card">
-      <div class="project-icon">🧠</div>
-      <h3>KnowFlow</h3>
-      <p>Turn any file into a bilingual AI agent — chat with your documents in Arabic or English, instantly.</p>
-      <span class="project-status status-live">● Live</span>
-      <div class="project-links">
-        <a href="https://github.com/tornidomaroc-web/knowflow" target="_blank">GitHub</a>
-        <a href="https://tryknowflow.com" target="_blank">Live</a>
-      </div>
-    </div>
-    <div class="project-card">
-      <div class="project-icon">🔧</div>
-      <h3>Fixor</h3>
-      <p>Automated security vulnerability detection for GitHub PRs — SQL, XSS, Command Injection, Path Traversal.</p>
-      <span class="project-status status-live">● Live</span>
-      <div class="project-links">
-        <a href="https://github.com/tornidomaroc-web/fixor" target="_blank">GitHub</a>
-        <a href="https://fixor-production.up.railway.app" target="_blank">Live</a>
-      </div>
-    </div>
-    <div class="project-card">
-      <div class="project-icon">🧾</div>
-      <h3>Scan & Action</h3>
-      <p>AI invoice processing — Gemini Vision extracts, classifies, and flags invoices automatically.</p>
-      <span class="project-status status-live">● Live</span>
-      <div class="project-links">
-        <a href="https://github.com/tornidomaroc-web/scan-and-action" target="_blank">GitHub</a>
-        <a href="https://scan-and-action.vercel.app" target="_blank">Live</a>
-      </div>
-    </div>
-    <div class="project-card">
-      <div class="project-icon">🦄</div>
-      <h3>UnicornApps</h3>
-      <p>AI e-commerce content engine — generates product listings for Amazon, Shopify and social media.</p>
-      <span class="project-status status-live">● Live</span>
-      <div class="project-links">
-        <a href="https://github.com/tornidomaroc-web/UnicornApps" target="_blank">GitHub</a>
-        <a href="https://unicorn-apps.vercel.app" target="_blank">Live</a>
-      </div>
-    </div>
-    <div class="project-card">
-      <div class="project-icon">🔍</div>
-      <h3>context-ops-mcp</h3>
-      <p>Revenue diagnosis MCP tool — finds billing gaps and onboarding friction in SaaS codebases.</p>
-      <span class="project-status status-beta">◐ Beta</span>
-      <div class="project-links">
-        <a href="https://github.com/tornidomaroc-web/context-ops-mcp" target="_blank">GitHub</a>
+  <div class="hero">
+    <div class="hero-content">
+      <div class="hero-badge">💼 Open to full-time AI Engineer roles</div>
+      <h1>Builder &<br><span>Operator</span></h1>
+      <p>Full Stack AI Engineer — FastAPI · Claude API · RAG pipelines · Arabic/English NLP. Available for on-site or remote roles in Morocco and the Gulf.</p>
+      <div class="hero-btns">
+        <a href="#projects" class="btn btn-primary">View Projects</a>
+        <a href="mailto:tornido.maroc@gmail.com" class="btn btn-ghost">✉ tornido.maroc@gmail.com</a>
       </div>
     </div>
   </div>
-</section>
 
-<section id="stack">
-  <div class="section-label">Technology</div>
-  <h2 class="section-title">Stack</h2>
-  <p class="section-desc">Tools and technologies I use to build production-ready products.</p>
-  <div class="stack-grid">
-    <span class="stack-pill">TypeScript</span>
-    <span class="stack-pill">Next.js</span>
-    <span class="stack-pill">React</span>
-    <span class="stack-pill">Supabase</span>
-    <span class="stack-pill">PostgreSQL</span>
-    <span class="stack-pill">Prisma</span>
-    <span class="stack-pill">Gemini AI</span>
-    <span class="stack-pill">Claude AI</span>
-    <span class="stack-pill">Tailwind CSS</span>
-    <span class="stack-pill">Node.js</span>
-    <span class="stack-pill">Railway</span>
-    <span class="stack-pill">Vercel</span>
-    <span class="stack-pill">Capacitor</span>
-    <span class="stack-pill">Lemon Squeezy</span>
-    <span class="stack-pill">MCP Protocol</span>
-  </div>
-</section>
-
-<section id="contact">
-  <div class="contact-box">
-    <h2>Let's Work Together</h2>
-    <p>Open to sponsorship, collaboration, and interesting projects.</p>
-    <div class="contact-links">
-      <a href="https://github.com/tornidomaroc-web" target="_blank" class="btn btn-ghost">GitHub</a>
-      <a href="https://x.com/AboJadMar" target="_blank" class="btn btn-ghost">X (Twitter)</a>
-      <a href="https://www.linkedin.com/in/abdelfettah-amellah-627718400/" target="_blank" class="btn btn-ghost">LinkedIn</a>
-      <a href="https://ko-fi.com/abojad2017" target="_blank" class="btn btn-primary">☕ Support on Ko-fi</a>
+  <section id="projects">
+    <div class="section-label">Work</div>
+    <h2 class="section-title">Projects</h2>
+    <p class="section-desc">AI-powered tools built for developers and e-commerce sellers.</p>
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="project-icon">🧠</div>
+        <h3>KnowFlow</h3>
+        <p>Turn any file into a bilingual AI agent — chat with your documents in Arabic or English, instantly.</p>
+        <span class="project-status status-live">● Live</span>
+        <div class="project-links">
+          <a href="https://github.com/tornidomaroc-web/knowflow" target="_blank">GitHub</a>
+          <a href="https://tryknowflow.com" target="_blank">Live</a>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-icon">🔧</div>
+        <h3>Fixor</h3>
+        <p>Automated security vulnerability detection for GitHub PRs — SQL, XSS, Command Injection, Path Traversal.</p>
+        <span class="project-status status-live">● Live</span>
+        <div class="project-links">
+          <a href="https://github.com/tornidomaroc-web/fixor" target="_blank">GitHub</a>
+          <a href="https://fixor-production.up.railway.app" target="_blank">Live</a>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-icon">🧾</div>
+        <h3>Scan & Action</h3>
+        <p>AI invoice processing — Gemini Vision extracts, classifies, and flags invoices automatically.</p>
+        <span class="project-status status-live">● Live</span>
+        <div class="project-links">
+          <a href="https://github.com/tornidomaroc-web/scan-and-action" target="_blank">GitHub</a>
+          <a href="https://scan-and-action.vercel.app" target="_blank">Live</a>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-icon">🦄</div>
+        <h3>UnicornApps</h3>
+        <p>AI e-commerce content engine — generates product listings for Amazon, Shopify and social media.</p>
+        <span class="project-status status-live">● Live</span>
+        <div class="project-links">
+          <a href="https://github.com/tornidomaroc-web/UnicornApps" target="_blank">GitHub</a>
+          <a href="https://unicorn-apps.vercel.app" target="_blank">Live</a>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-icon">🔍</div>
+        <h3>context-ops-mcp</h3>
+        <p>Revenue diagnosis MCP tool — finds billing gaps and onboarding friction in SaaS codebases.</p>
+        <span class="project-status status-beta">◐ Beta</span>
+        <div class="project-links">
+          <a href="https://github.com/tornidomaroc-web/context-ops-mcp" target="_blank">GitHub</a>
+        </div>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<footer>
-  <p>Built with ❤️ by AboJad · Morocco 🇲🇦 · 2025</p>
-</footer>
+  <section id="stack">
+    <div class="section-label">Technology</div>
+    <h2 class="section-title">Stack</h2>
+    <p class="section-desc">Tools and technologies I use to build production-ready products.</p>
+    <div class="stack-grid">
+      <span class="stack-pill">TypeScript</span>
+      <span class="stack-pill">Next.js</span>
+      <span class="stack-pill">React</span>
+      <span class="stack-pill">Supabase</span>
+      <span class="stack-pill">PostgreSQL</span>
+      <span class="stack-pill">Prisma</span>
+      <span class="stack-pill">Gemini AI</span>
+      <span class="stack-pill">Claude AI</span>
+      <span class="stack-pill">Tailwind CSS</span>
+      <span class="stack-pill">Node.js</span>
+      <span class="stack-pill">Railway</span>
+      <span class="stack-pill">Vercel</span>
+      <span class="stack-pill">Capacitor</span>
+      <span class="stack-pill">Lemon Squeezy</span>
+      <span class="stack-pill">MCP Protocol</span>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="contact-box">
+      <h2>Let's Work Together</h2>
+      <p>Looking for a full-time AI Engineer role. Reach out directly.</p>
+      <div class="contact-links">
+        <a href="https://github.com/tornidomaroc-web" target="_blank" class="btn btn-ghost">GitHub</a>
+        <a href="https://x.com/AboJadMar" target="_blank" class="btn btn-ghost">X (Twitter)</a>
+        <a href="https://www.linkedin.com/in/abdelfettah-amellah-627718400/" target="_blank"
+          class="btn btn-ghost">LinkedIn</a>
+        <a href="mailto:tornido.maroc@gmail.com" class="btn btn-primary">✉ Send Email</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>Built by AboJad · Morocco 🇲🇦 · 2026</p>
+  </footer>
 
 </body>
+
 </html>
