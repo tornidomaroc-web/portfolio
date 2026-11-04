@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AboJad — Builder & Operator</title>
+  <title>Abdelfettah Amellah — Full-stack AI Engineer</title>
   <style>
     * {
       margin: 0;
@@ -332,6 +332,12 @@
       color: var(--muted);
       font-size: 0.85rem;
     }
+
+    @media (max-width: 520px) {
+      .nav-inner { padding: 1rem; }
+      .logo { font-size: 1rem; }
+      .nav-links { gap: 1rem; font-size: 0.8rem; }
+    }
   </style>
 </head>
 
@@ -339,7 +345,7 @@
 
   <nav>
     <div class="nav-inner">
-      <div class="logo">AboJad</div>
+      <div class="logo">Abdelfettah Amellah</div>
       <div class="nav-links">
         <a href="#projects">Projects</a>
         <a href="#stack">Stack</a>
@@ -363,8 +369,18 @@
   <section id="projects">
     <div class="section-label">Work</div>
     <h2 class="section-title">Projects</h2>
-    <p class="section-desc">AI products I designed and built end to end, in Arabic, English and French. Four are published in app stores.</p>
+    <p class="section-desc">AI products I designed and built end to end, in Arabic, English and French. Four are published in app stores; two are open source.</p>
     <div class="projects-grid">
+      <div class="project-card">
+        <div class="project-icon">🛠️</div>
+        <h3>UAS Sustainment Workbench</h3>
+        <p>Open-source tool that reads PX4 and ArduPilot flight logs and keeps a small civil drone fleet's maintenance records: what is due, and why. Python, FastAPI, SQLite and Docker; 14 public releases, CI on Ubuntu and Windows.</p>
+        <span class="project-status status-live">● Open source · Demo</span>
+        <div class="project-links">
+          <a href="https://tornidomaroc-web.github.io/uas-sustainment-workbench/" target="_blank">Demo</a>
+          <a href="https://github.com/tornidomaroc-web/uas-sustainment-workbench" target="_blank">GitHub</a>
+        </div>
+      </div>
       <div class="project-card">
         <div class="project-icon">🧠</div>
         <h3>KnowFlow</h3>
@@ -460,7 +476,7 @@
   </section>
 
   <footer>
-    <p>Built by AboJad · Morocco 🇲🇦 · 2026</p>
+    <p>Built by Abdelfettah Amellah · Morocco 🇲🇦 · 2026</p>
   </footer>
 
 </body>
