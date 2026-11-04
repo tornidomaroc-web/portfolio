@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AboJad — Builder & Operator</title>
+  <title>Abdelfettah Amellah — Full-stack AI Engineer</title>
   <style>
     * {
       margin: 0;
@@ -332,6 +332,12 @@
       color: var(--muted);
       font-size: 0.85rem;
     }
+
+    @media (max-width: 520px) {
+      .nav-inner { padding: 1rem; }
+      .logo { font-size: 1rem; }
+      .nav-links { gap: 1rem; font-size: 0.8rem; }
+    }
   </style>
 </head>
 
@@ -339,7 +345,7 @@
 
   <nav>
     <div class="nav-inner">
-      <div class="logo">AboJad</div>
+      <div class="logo">Abdelfettah Amellah</div>
       <div class="nav-links">
         <a href="#projects">Projects</a>
         <a href="#stack">Stack</a>
@@ -363,55 +369,68 @@
   <section id="projects">
     <div class="section-label">Work</div>
     <h2 class="section-title">Projects</h2>
-    <p class="section-desc">AI-powered tools built for developers and e-commerce sellers.</p>
+    <p class="section-desc">AI products I designed and built end to end, in Arabic, English and French. Four are published in app stores; two are open source.</p>
     <div class="projects-grid">
       <div class="project-card">
-        <div class="project-icon">🧠</div>
-        <h3>KnowFlow</h3>
-        <p>Turn any file into a bilingual AI agent — chat with your documents in Arabic or English, instantly.</p>
-        <span class="project-status status-live">● Live</span>
+        <div class="project-icon">🛠️</div>
+        <h3>UAS Sustainment Workbench</h3>
+        <p>Open-source tool that reads PX4 and ArduPilot flight logs and keeps a small civil drone fleet's maintenance records: what is due, and why. Python, FastAPI, SQLite and Docker; 14 public releases, CI on Ubuntu and Windows.</p>
+        <span class="project-status status-live">● Open source · Demo</span>
         <div class="project-links">
-          <a href="https://github.com/tornidomaroc-web/knowflow" target="_blank">GitHub</a>
-          <a href="https://tryknowflow.com" target="_blank">Live</a>
+          <a href="https://tornidomaroc-web.github.io/uas-sustainment-workbench/" target="_blank">Demo</a>
+          <a href="https://github.com/tornidomaroc-web/uas-sustainment-workbench" target="_blank">GitHub</a>
         </div>
       </div>
       <div class="project-card">
-        <div class="project-icon">🔧</div>
-        <h3>Fixor</h3>
-        <p>Automated security vulnerability detection for GitHub PRs — SQL, XSS, Command Injection, Path Traversal.</p>
-        <span class="project-status status-live">● Live</span>
+        <div class="project-icon">🧠</div>
+        <h3>KnowFlow</h3>
+        <p>Arabic-first study app. Students upload their course files (PDF, Word, PowerPoint), ask questions and get answers that name the source file, plus summaries and quizzes. Claude, Voyage embeddings, Next.js and a Python FastAPI ingestion service.</p>
+        <span class="project-status status-live">● App Store · Web</span>
         <div class="project-links">
-          <a href="https://github.com/tornidomaroc-web/fixor" target="_blank">GitHub</a>
-          <a href="https://fixor-production.up.railway.app" target="_blank">Live</a>
+          <a href="https://apps.apple.com/us/app/knowflow-study-your-notes/id6820418649?uo=4" target="_blank">App Store</a>
+          <a href="https://tryknowflow.com" target="_blank">Web</a>
+          <a href="https://github.com/tornidomaroc-web/knowflow" target="_blank">GitHub</a>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-icon">🏠</div>
+        <h3>Daftar Alwaseet</h3>
+        <p>Offline Arabic app for Saudi real-estate brokers. Paste a client's WhatsApp message and it pulls out the phone number, budget, district and property type, saves the client and reminds you to follow up. No server, no account. Expo and React Native.</p>
+        <span class="project-status status-live">● App Store</span>
+        <div class="project-links">
+          <a href="https://apps.apple.com/sa/app/daftar-alwaseet-broker-crm/id6822930243?uo=4" target="_blank">App Store</a>
         </div>
       </div>
       <div class="project-card">
         <div class="project-icon">🧾</div>
         <h3>Scan & Action</h3>
-        <p>AI invoice processing — Gemini Vision extracts, classifies, and flags invoices automatically.</p>
-        <span class="project-status status-live">● Live</span>
+        <p>Receipt and invoice processing in English, French and Arabic. Snap a receipt or upload an invoice; Gemini reads the merchant, total, date and category, and a rule engine flags anything that needs a second look.</p>
+        <span class="project-status status-live">● Google Play · Web</span>
         <div class="project-links">
+          <a href="https://play.google.com/store/apps/details?id=com.scanaction.app&amp;hl=en" target="_blank">Google Play</a>
+          <a href="https://www.scan-action.com" target="_blank">Web</a>
           <a href="https://github.com/tornidomaroc-web/scan-and-action" target="_blank">GitHub</a>
-          <a href="https://scan-and-action.vercel.app" target="_blank">Live</a>
         </div>
       </div>
       <div class="project-card">
         <div class="project-icon">🦄</div>
         <h3>UnicornApps</h3>
-        <p>AI e-commerce content engine — generates product listings for Amazon, Shopify and social media.</p>
-        <span class="project-status status-live">● Live</span>
+        <p>Product copy from one photo: title, description, bullet points, Shopify HTML and social captions, in Arabic or English. Next.js, Supabase and Gemini.</p>
+        <span class="project-status status-live">● Google Play · Web</span>
         <div class="project-links">
+          <a href="https://play.google.com/store/apps/details?id=com.unicornappsai.app&amp;hl=en" target="_blank">Google Play</a>
+          <a href="https://www.unicornapps.app" target="_blank">Web</a>
           <a href="https://github.com/tornidomaroc-web/UnicornApps" target="_blank">GitHub</a>
-          <a href="https://unicorn-apps.vercel.app" target="_blank">Live</a>
         </div>
       </div>
       <div class="project-card">
-        <div class="project-icon">🔍</div>
-        <h3>context-ops-mcp</h3>
-        <p>Revenue diagnosis MCP tool — finds billing gaps and onboarding friction in SaaS codebases.</p>
-        <span class="project-status status-beta">◐ Beta</span>
+        <div class="project-icon">🔧</div>
+        <h3>Fixor</h3>
+        <p>Open-source pull-request security scanner for Node/TypeScript apps: pattern checks plus a Claude review for access-control and secret-leak mistakes. Its measurements are published in the repo, including a negative field-trial result.</p>
+        <span class="project-status status-beta">◐ Open source</span>
         <div class="project-links">
-          <a href="https://github.com/tornidomaroc-web/context-ops-mcp" target="_blank">GitHub</a>
+          <a href="https://github.com/tornidomaroc-web/fixor" target="_blank">GitHub</a>
+          <a href="https://github.com/tornidomaroc-web/fixor-fastapi-proof" target="_blank">FastAPI proof</a>
         </div>
       </div>
     </div>
@@ -423,20 +442,22 @@
     <p class="section-desc">Tools and technologies I use to build production-ready products.</p>
     <div class="stack-grid">
       <span class="stack-pill">TypeScript</span>
+      <span class="stack-pill">Python</span>
       <span class="stack-pill">Next.js</span>
       <span class="stack-pill">React</span>
+      <span class="stack-pill">React Native / Expo</span>
+      <span class="stack-pill">FastAPI</span>
+      <span class="stack-pill">Node.js</span>
       <span class="stack-pill">Supabase</span>
       <span class="stack-pill">PostgreSQL</span>
       <span class="stack-pill">Prisma</span>
-      <span class="stack-pill">Gemini AI</span>
-      <span class="stack-pill">Claude AI</span>
+      <span class="stack-pill">Claude API</span>
+      <span class="stack-pill">Gemini</span>
       <span class="stack-pill">Tailwind CSS</span>
-      <span class="stack-pill">Node.js</span>
+      <span class="stack-pill">Capacitor</span>
       <span class="stack-pill">Railway</span>
       <span class="stack-pill">Vercel</span>
-      <span class="stack-pill">Capacitor</span>
-      <span class="stack-pill">Lemon Squeezy</span>
-      <span class="stack-pill">MCP Protocol</span>
+      <span class="stack-pill">Paddle</span>
     </div>
   </section>
 
@@ -455,7 +476,7 @@
   </section>
 
   <footer>
-    <p>Built by AboJad · Morocco 🇲🇦 · 2026</p>
+    <p>Built by Abdelfettah Amellah · Morocco 🇲🇦 · 2026</p>
   </footer>
 
 </body>
